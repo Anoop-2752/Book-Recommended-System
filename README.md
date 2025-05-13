@@ -1,34 +1,110 @@
-### Book Recommendation System
+# End-to-End-Book-Recommender-System
 
-1. First, we create a notebook/ folder, and inside it, a research notebook (research.ipynb) to conduct all the exploratory work. In this notebook, we build our collaborative filtering model and save the trained model using pickle into an artifacts/ folder.
+## Workflow
 
-2. Next, we set up the project folder structure to enable modular and maintainable coding. This can be done either manually or automatically. Here, we create the structure automatically.
+- config.yaml
+- entity
+- config/configuration.py
+- components
+- pipeline
+- main.py
+- app.py
 
-- We create a template.py file, which contains the logic to generate the project’s folder structure.
 
-- This template.py file can be reused for any end-to-end machine learning project. You can also customize it based on specific project requirements.
+# How to run?
+### STEPS:
 
-- It includes everything needed to set up a standard ML pipeline structure, ensuring consistency across projects.
+Clone the repository
 
-3. Modular Coding Approach:
-Instead of writing all code in a single file, we split the logic into separate modules (e.g., data ingestion, model training, evaluation, etc.), and bring them together at the main execution point.
+```bash
+https://github.com/Anoop-2752/Book-Recommended-System
+```
+### STEP 01- Create a conda environment after opening the repository
 
-4. Next we are writing The setup.py: file is a standard Python script used for packaging Python projects. It's especially important when you're turning your machine learning or data science project into a distributable Python package.
+```bash
+conda create -n books python=3.7.10 -y
+```
 
-5. -e . add on the requirements.txt this will look for set.py and install your folder as your local package.
+```bash
+conda activate books
+```
 
-6. Then we create YAML file in config folder and also add in requirement.txt and we execute it then a egg-info file will be created. And once it is created our local package installation is done. Now we can write the modular coding.
 
-7. Now we are writing the exception handler : Custom exeption you can use this file for all the projects. the main benefit of this is it will show the line no that has the error.
+### STEP 02- install the requirements
+```bash
+pip install -r requirements.txt
+```
 
-8. Next we write the logger : A logger file records program events like info, errors, and warnings, helping track execution, debug issues, and save logs for analysis during development or production..
 
-9. Then we will write the utils file : utils.py is a utility module in a Python project. It's typically used to store helper functions or reusable logic that are shared across multiple files in your project.
+Now run,
+```bash
+streamlit run app.py
+```
 
-10. Now we can write the constant file : The constant file (usually inside a constant/ folder in a modular machine learning project) the file is used to stores fixed values like file paths or names, improving project consistency, reducing repetition, and making configuration changes easier and centralized.
 
-11. Artifacts : are files generated during an ML pipeline—like datasets, models, and logs—stored in a dedicated folder to track outputs, ensure reproducibility, and simplify debugging.
+# Streamlit app Docker Image Deployment
 
-12. Next we will write the entity : The entity module holds custom classes (often using Python’s @dataclass) that define the structure and type of data used across the ML pipeline — such as configuration settings, artifacts, and schema objects. making code cleaner, more readable, and easier to maintain and debug.
+## 1. Login with your AWS console and launch an EC2 instance
+## 2. Run the following commands
 
-13. next we are writing configuration.py file : configuration.py is a Python module that reads settings (like file paths, parameters, or API keys) from a config file (usually config.yaml) and returns them as structured objects, often using data classes from the entity module. so that YAMl file is important.
+Note: Do the port mapping to this port:- 8501
+
+```bash
+sudo apt-get update -y
+
+sudo apt-get upgrade
+
+#Install Docker
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+
+sudo sh get-docker.sh
+
+sudo usermod -aG docker ubuntu
+
+newgrp docker
+```
+
+```bash
+git clone "your-project"
+```
+
+```bash
+docker build -t anoop/stapp:latest . 
+```
+
+```bash
+docker images -a  
+```
+
+```bash
+docker run -d -p 8501:8501 anoop/stapp 
+```
+
+```bash
+docker ps  
+```
+
+```bash
+docker stop container_id
+```
+
+```bash
+docker rm $(docker ps -a -q)
+```
+
+```bash
+docker login 
+```
+
+```bash
+docker push anoop/stapp:latest 
+```
+
+```bash
+docker rmi anoop/stapp:latest
+```
+
+```bash
+docker pull anoop/stapp
+```
